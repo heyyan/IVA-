@@ -20,21 +20,21 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>@searchResults.Took</th>
-                <th>@searchResults.Total</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
+                <th>Title</th>
+                <th>ProgramType</th>
+                <th>IvaRating</th>
+                <th>year</th>
+
             </tr>
         </thead>
         <tbody>
-            @foreach (var hit in searchResults.Hits)
+            @foreach (var result in searchResults)
             {
                 <tr>
-                    <td>@hit.Source.Title</td>
-                    <td>@hit.Source.Budget</td>
-                    <td>@hit.Source.Created</td>
-                    <td>@hit.Source.ImageCount</td>
+                    <td>@result.Title</td>
+                    <td>@result.ProgramType</td>
+                    <td>@result.IvaRating</td>
+                    <td>@result.Year</td>
                 </tr>
             }
         </tbody>
@@ -42,12 +42,22 @@ else
 }
 
 @code {
-    private SearchResults searchResults;
+    private List<AutocompleteTitle> searchResults;
 
     protected override async Task OnInitializedAsync()
     {
         //forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
-        var results = await videoSearch.Search("some");
+        try
+        {
+           // var serr = await videoSearch.Search("moon");
+            searchResults = await videoSearch.AutocompleteTitle("some");
+        }
+        catch (Exception ex)
+        {
+
+            throw;
+        }
+
     }
 
     //public class WeatherForecast

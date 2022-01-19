@@ -12,9 +12,15 @@ namespace SearchApp.Services
             _searchClient = searchClient ?? throw new ArgumentNullException(nameof(searchClient));
         }
 
-        public async Task<SearchResults> Search(string text)
+        public async Task<Root> Search(string title, string skip, string take)
         {
-            return await _searchClient.GetSearchResults();
+            return await _searchClient.GetSearchResults(title, skip, take);
+        }
+
+
+        public async Task<List<AutocompleteTitle>> AutocompleteTitle(string prefix)
+        {
+            return await _searchClient.AutocompleteTitle(prefix);
         }
     }
 }

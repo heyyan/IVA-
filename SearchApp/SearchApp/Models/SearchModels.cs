@@ -1,374 +1,262 @@
-﻿
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using System.Globalization;
+﻿using Newtonsoft.Json;
 
 namespace SearchApp.Models
 {
-    public class SearchResults
+    public class Release
     {
-        [JsonProperty("Took")]
-        public long Took { get; set; }
-
-        [JsonProperty("Total")]
-        public long Total { get; set; }
-
-        [JsonProperty("MaxScore")]
-        public long MaxScore { get; set; }
-
-        [JsonProperty("Hits")]
-        public Hit[] Hits { get; set; }
+        public DateTime Date { get; set; }
+        public string Certification { get; set; }
+        public string Country { get; set; }
+        public string CountryName { get; set; }
+        public string CountryId { get; set; }
+        public string Type { get; set; }
     }
 
-    public class Hit
+    public class Contributor
     {
-        [JsonProperty("Score")]
-        public long Score { get; set; }
+        public string PersonId { get; set; }
+        public string PersonName { get; set; }
+        public string Character { get; set; }
+        public string Job { get; set; }
+    }
 
-        [JsonProperty("Source")]
-        public Source Source { get; set; }
+    public class AlternateTitle
+    {
+        public string Title { get; set; }
+        public string Country { get; set; }
+        public string CountryName { get; set; }
+        public string CountryId { get; set; }
+    }
 
-        [JsonProperty("Id")]
+    public class Description
+    {
+        [JsonProperty("Description")]
+        public string Desc { get; set; }
+        public string Attribution { get; set; }
+        public string Language { get; set; }
+    }
+
+    public class Company
+    {
         public string Id { get; set; }
+        public string CompanyId { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class ExternalId
+    {
+        public string Name { get; set; }
+        public string Id { get; set; }
+    }
+
+    public class ScreenCapture
+    {
+        public string Height { get; set; }
+        public string Width { get; set; }
+        public string Aspect { get; set; }
+        public string FilePath { get; set; }
+    }
+
+    public class TargetCountriesDetail
+    {
+        public string CountryId { get; set; }
+        public string Country { get; set; }
+        public string CountryName { get; set; }
+    }
+
+    public class Video
+    {
+        public string Id { get; set; }
+        public string Title { get; set; }
+        public string Type { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime ExpirationDate { get; set; }
+        public bool Mature { get; set; }
+        public string Duration { get; set; }
+        public string Language { get; set; }
+        public string LanguageSubtitled { get; set; }
+        public string Company { get; set; }
+        public bool Clean { get; set; }
+        public bool AllowAdvertising { get; set; }
+        public bool Certification { get; set; }
+        public bool Theatrical { get; set; }
+        public bool HomeVideo { get; set; }
+        public bool TuneIn { get; set; }
+        public string SourceVideoWidth { get; set; }
+        public string SourceVideoHeight { get; set; }
+        public DateTime Encoded { get; set; }
+        public List<ScreenCapture> ScreenCaptures { get; set; }
+        public List<string> TargetCountries { get; set; }
+        public List<TargetCountriesDetail> TargetCountriesDetail { get; set; }
+        public string TargetLanguage { get; set; }
+    }
+
+    public class Image
+    {
+        public string ImageType { get; set; }
+        public string Attribution { get; set; }
+        public string Width { get; set; }
+        public string Height { get; set; }
+        public string Violence { get; set; }
+        public string Sexuality { get; set; }
+        public string Language { get; set; }
+        public List<string> Tags { get; set; }
+        public bool Official { get; set; }
+        public string FilePath { get; set; }
+        public DateTime Modified { get; set; }
+    }
+
+    public class Link
+    {
+        public string Platform { get; set; }
+        public string Url { get; set; }
+    }
+
+    public class Availability
+    {
+        public string Provider { get; set; }
+        public string OfferType { get; set; }
+        public string DeliveryMethod { get; set; }
+        public string Price { get; set; }
+        public string Currency { get; set; }
+        public bool PreSale { get; set; }
+        public string Quality { get; set; }
+        public string Country { get; set; }
+        public List<Link> Links { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime ExpirationDate { get; set; }
+    }
+
+    public class ProgramTrend
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Brand { get; set; }
+        public string Country { get; set; }
+        public List<string> Classifiers { get; set; }
+        public DateTime Modified { get; set; }
+        public string Rank { get; set; }
+        public string ListUrl { get; set; }
+        public string TitleUrl { get; set; }
+    }
+
+    public class Award
+    {
+        public string Year { get; set; }
+        public string Type { get; set; }
+        public string Category { get; set; }
+        public string CategoryType { get; set; }
+        public string ProgramId { get; set; }
+        public List<string> PersonIds { get; set; }
+        public bool Winner { get; set; }
+        public DateTime Modified { get; set; }
+    }
+
+    public class Item
+    {
+        public string ProgramId { get; set; }
+        public string Sequence { get; set; }
+        public DateTime Modified { get; set; }
+    }
+
+    public class Collection
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public List<string> Types { get; set; }
+        public List<string> ParentCollectionIds { get; set; }
+        public List<Item> Items { get; set; }
+        public List<string> Tags { get; set; }
+        public List<string> MicroGenres { get; set; }
+        public List<string> Subjects { get; set; }
+        public List<string> BasedOns { get; set; }
+        public List<string> Characters { get; set; }
+        public DateTime Timestamp { get; set; }
+    }
+
+    public class Summary
+    {
+        public Video Video { get; set; }
+        public Image Image { get; set; }
+        public Description Description { get; set; }
+        public List<Contributor> Contributors { get; set; }
+        public string ContributorCount { get; set; }
+        public string AvailabilityCount { get; set; }
+        public string ImageCount { get; set; }
+        public string VideoCount { get; set; }
+        public string ProgramTrendCount { get; set; }
+        public string AwardCount { get; set; }
+        public string ReleaseCount { get; set; }
+        public string TitleCount { get; set; }
+        public string ExternalIdCount { get; set; }
+        public string TagCount { get; set; }
+        public string ThemeCount { get; set; }
     }
 
     public class Source
     {
-        [JsonProperty("Id")]
         public string Id { get; set; }
-
-        [JsonProperty("ProgramType")]
-        public ProgramType ProgramType { get; set; }
-
-        [JsonProperty("Title")]
+        public string ProgramType { get; set; }
         public string Title { get; set; }
-
-        [JsonProperty("Title_completion")]
-        public string TitleCompletion { get; set; }
-
-        [JsonProperty("Created")]
-        public DateTimeOffset Created { get; set; }
-
-        [JsonProperty("Modified")]
-        public DateTimeOffset Modified { get; set; }
-
-        [JsonProperty("OriginalTitle")]
+        public DateTime Created { get; set; }
+        public DateTime Modified { get; set; }
         public string OriginalTitle { get; set; }
-
-        [JsonProperty("OriginalTitle_completion")]
-        public string OriginalTitleCompletion { get; set; }
-
-        [JsonProperty("OriginalReleaseDate")]
-        public DateTimeOffset OriginalReleaseDate { get; set; }
-
-        [JsonProperty("Year")]
-        public long Year { get; set; }
-
-        [JsonProperty("OriginalLanguage")]
-        public OriginalLanguage OriginalLanguage { get; set; }
-
-        [JsonProperty("Deleted")]
+        public DateTime OriginalReleaseDate { get; set; }
+        public string Year { get; set; }
+        public string ShowId { get; set; }
+        public string SeasonId { get; set; }
+        public string SeasonNumber { get; set; }
+        public string EpisodeNumber { get; set; }
+        public string OriginalLanguage { get; set; }
+        public string Revenue { get; set; }
+        public string Budget { get; set; }
+        public string Runtime { get; set; }
+        public string OfficialSiteUrl { get; set; }
         public bool Deleted { get; set; }
-
-        [JsonProperty("Status")]
-        public Status Status { get; set; }
-
-        [JsonProperty("Type")]
+        public string Status { get; set; }
         public string Type { get; set; }
-
-        [JsonProperty("Releases")]
-        public Release[] Releases { get; set; }
-
-        [JsonProperty("VersionId")]
-        public long VersionId { get; set; }
-
-        [JsonProperty("VideoCount")]
-        public long VideoCount { get; set; }
-
-        [JsonProperty("ImageCount")]
-        public long ImageCount { get; set; }
-
-        [JsonProperty("IvaRating")]
-        public long IvaRating { get; set; }
-
-        [JsonProperty("IvaRatingSort")]
-        public double IvaRatingSort { get; set; }
-
-        [JsonProperty("TimeStamp")]
-        public DateTimeOffset TimeStamp { get; set; }
-
-        [JsonProperty("Packages")]
-        public Package[] Packages { get; set; }
-
-        [JsonProperty("Budget", NullValueHandling = NullValueHandling.Ignore)]
-        public long? Budget { get; set; }
-
-        [JsonProperty("Runtime", NullValueHandling = NullValueHandling.Ignore)]
-        public long? Runtime { get; set; }
-
-        [JsonProperty("Revenue", NullValueHandling = NullValueHandling.Ignore)]
-        public long? Revenue { get; set; }
-
-        [JsonProperty("OfficialSiteUrl", NullValueHandling = NullValueHandling.Ignore)]
-        public Uri OfficialSiteUrl { get; set; }
+        public string RedirectTo { get; set; }
+        public string Idx { get; set; }
+        public string OriginatingNetwork { get; set; }
+        public List<string> Genres { get; set; }
+        public List<Release> Releases { get; set; }
+        public List<Contributor> Contributors { get; set; }
+        public List<AlternateTitle> AlternateTitles { get; set; }
+        public List<Description> Descriptions { get; set; }
+        public List<Company> Companies { get; set; }
+        public List<string> Tags { get; set; }
+        public List<string> Themes { get; set; }
+        public List<ExternalId> ExternalIds { get; set; }
+        public List<Video> Videos { get; set; }
+        public List<Image> Images { get; set; }
+        public string VersionId { get; set; }
+        public List<Availability> Availabilities { get; set; }
+        public List<ProgramTrend> ProgramTrends { get; set; }
+        public string VideoCount { get; set; }
+        public string ImageCount { get; set; }
+        public string IvaRating { get; set; }
+        public string IvaRatingSort { get; set; }
+        public DateTime TimeStamp { get; set; }
+        public List<Award> Awards { get; set; }
+        public List<Collection> Collections { get; set; }
+        public Summary Summary { get; set; }
     }
 
-    public class Release
+    public class Hit
     {
-        [JsonProperty("Date")]
-        public DateTimeOffset Date { get; set; }
-
-        [JsonProperty("Country")]
-        public string Country { get; set; }
-
-        [JsonProperty("CountryName")]
-        public string CountryName { get; set; }
-
-        [JsonProperty("CountryId")]
-        public long CountryId { get; set; }
-
-        [JsonProperty("Type")]
-        public TypeEnum Type { get; set; }
-
-        [JsonProperty("Certification", NullValueHandling = NullValueHandling.Ignore)]
-        public string Certification { get; set; }
+        public string Score { get; set; }
+        public Source Source { get; set; }
+        public string Id { get; set; }
     }
 
-    public enum OriginalLanguage { English, Mandarin, Spanish };
-
-    public enum Package { AllAccess, EntertainmentDiscovery };
-
-    public enum ProgramType { Movie };
-
-    public enum TypeEnum { Digital, Premiere, TheatricalLimitedRelease, TheatricalWideRelease, Tv };
-
-    public enum Status { Released };
-
-    internal static class Converter
+    public class Root
     {
-        public static readonly JsonSerializerSettings Settings = new JsonSerializerSettings
-        {
-            MetadataPropertyHandling = MetadataPropertyHandling.Ignore,
-            DateParseHandling = DateParseHandling.None,
-            Converters =
-            {
-                OriginalLanguageConverter.Singleton,
-                PackageConverter.Singleton,
-                ProgramTypeConverter.Singleton,
-                TypeEnumConverter.Singleton,
-                StatusConverter.Singleton,
-                new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
-            },
-        };
-    }
-
-    internal class OriginalLanguageConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(OriginalLanguage) || t == typeof(OriginalLanguage?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "English":
-                    return OriginalLanguage.English;
-                case "Mandarin":
-                    return OriginalLanguage.Mandarin;
-                case "Spanish":
-                    return OriginalLanguage.Spanish;
-            }
-            throw new Exception("Cannot unmarshal type OriginalLanguage");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (OriginalLanguage)untypedValue;
-            switch (value)
-            {
-                case OriginalLanguage.English:
-                    serializer.Serialize(writer, "English");
-                    return;
-                case OriginalLanguage.Mandarin:
-                    serializer.Serialize(writer, "Mandarin");
-                    return;
-                case OriginalLanguage.Spanish:
-                    serializer.Serialize(writer, "Spanish");
-                    return;
-            }
-            throw new Exception("Cannot marshal type OriginalLanguage");
-        }
-
-        public static readonly OriginalLanguageConverter Singleton = new OriginalLanguageConverter();
-    }
-
-    internal class PackageConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(Package) || t == typeof(Package?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "AllAccess":
-                    return Package.AllAccess;
-                case "EntertainmentDiscovery":
-                    return Package.EntertainmentDiscovery;
-            }
-            throw new Exception("Cannot unmarshal type Package");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (Package)untypedValue;
-            switch (value)
-            {
-                case Package.AllAccess:
-                    serializer.Serialize(writer, "AllAccess");
-                    return;
-                case Package.EntertainmentDiscovery:
-                    serializer.Serialize(writer, "EntertainmentDiscovery");
-                    return;
-            }
-            throw new Exception("Cannot marshal type Package");
-        }
-
-        public static readonly PackageConverter Singleton = new PackageConverter();
-    }
-
-    internal class ProgramTypeConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(ProgramType) || t == typeof(ProgramType?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            if (value == "Movie")
-            {
-                return ProgramType.Movie;
-            }
-            throw new Exception("Cannot unmarshal type ProgramType");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (ProgramType)untypedValue;
-            if (value == ProgramType.Movie)
-            {
-                serializer.Serialize(writer, "Movie");
-                return;
-            }
-            throw new Exception("Cannot marshal type ProgramType");
-        }
-
-        public static readonly ProgramTypeConverter Singleton = new ProgramTypeConverter();
-    }
-
-    internal class TypeEnumConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(TypeEnum) || t == typeof(TypeEnum?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            switch (value)
-            {
-                case "Digital":
-                    return TypeEnum.Digital;
-                case "Premiere":
-                    return TypeEnum.Premiere;
-                case "TV":
-                    return TypeEnum.Tv;
-                case "Theatrical_Limited_Release":
-                    return TypeEnum.TheatricalLimitedRelease;
-                case "Theatrical_Wide_Release":
-                    return TypeEnum.TheatricalWideRelease;
-            }
-            throw new Exception("Cannot unmarshal type TypeEnum");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (TypeEnum)untypedValue;
-            switch (value)
-            {
-                case TypeEnum.Digital:
-                    serializer.Serialize(writer, "Digital");
-                    return;
-                case TypeEnum.Premiere:
-                    serializer.Serialize(writer, "Premiere");
-                    return;
-                case TypeEnum.Tv:
-                    serializer.Serialize(writer, "TV");
-                    return;
-                case TypeEnum.TheatricalLimitedRelease:
-                    serializer.Serialize(writer, "Theatrical_Limited_Release");
-                    return;
-                case TypeEnum.TheatricalWideRelease:
-                    serializer.Serialize(writer, "Theatrical_Wide_Release");
-                    return;
-            }
-            throw new Exception("Cannot marshal type TypeEnum");
-        }
-
-        public static readonly TypeEnumConverter Singleton = new TypeEnumConverter();
-    }
-
-    internal class StatusConverter : JsonConverter
-    {
-        public override bool CanConvert(Type t) => t == typeof(Status) || t == typeof(Status?);
-
-        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
-        {
-            if (reader.TokenType == JsonToken.Null) return null;
-            var value = serializer.Deserialize<string>(reader);
-            if (value == "Released")
-            {
-                return Status.Released;
-            }
-            throw new Exception("Cannot unmarshal type Status");
-        }
-
-        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
-        {
-            if (untypedValue == null)
-            {
-                serializer.Serialize(writer, null);
-                return;
-            }
-            var value = (Status)untypedValue;
-            if (value == Status.Released)
-            {
-                serializer.Serialize(writer, "Released");
-                return;
-            }
-            throw new Exception("Cannot marshal type Status");
-        }
-        public static readonly StatusConverter Singleton = new StatusConverter();
+        public string Took { get; set; }
+        public string Total { get; set; }
+        public string MaxScore { get; set; }
+        public List<Hit> Hits { get; set; }
+        public string Message { get; set; }
+        public string NextPageToken { get; set; }
     }
 }

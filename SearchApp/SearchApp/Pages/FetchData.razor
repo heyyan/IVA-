@@ -1,0 +1,63 @@
+﻿@page "/fetchdata"
+@using SearchApp.Models
+@using SearchApp.Services
+@inject HttpClient Http
+@inject IVideoSearch videoSearch
+
+
+<PageTitle>Weather forecast</PageTitle>
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (searchResults == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@searchResults.Took</th>
+                <th>@searchResults.Total</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var hit in searchResults.Hits)
+            {
+                <tr>
+                    <td>@hit.Source.Title</td>
+                    <td>@hit.Source.Budget</td>
+                    <td>@hit.Source.Created</td>
+                    <td>@hit.Source.ImageCount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private SearchResults searchResults;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        var results = await videoSearch.Search("some");
+    }
+
+    //public class WeatherForecast
+    //{
+    //    public DateTime Date { get; set; }
+
+    //    public int TemperatureC { get; set; }
+
+    //    public string? Summary { get; set; }
+
+    //    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    //}
+}

@@ -4,15 +4,10 @@
 @inject IVideoSearch videoSearch
 @using BlazorPagination
 
-@*<div class="container">
-    <div class="row">
-    <img class="centerMiddle align-items-center justify-content-center" src="/images/logo-dark-sticky.png" alt="Logo" style="height: 100%;">
-    </div>
-    </div>*@
 <EditForm Model="@SearchData" class="centerMiddle">
     <div class="searchBoxForm">
         <InputText @bind-Value="SearchText" class="searchBox"></InputText>
-        <input class="searchBoxSubmit" @onclick="@(e => SearchPager(0.ToString(), SearchText))">
+        <input class="searchBoxSubmit" style="cursor:pointer" @onclick="@(e => Search(0.ToString(), SearchText))">
     </div>
 </EditForm>
 
@@ -35,14 +30,34 @@
                         @foreach (var result in SearchData.Root.Hits)
                         {
                             <tr>
-                                <td>@result.Source.Title</td>
-                                <td>@result.Source.Year</td>
-                                @*<td>@result.IvaRating</td>
-                                    <td>@result.Year</td>*@
+                                <td>
+                                    <h3>
+                                        <a href="@result.Source.OfficialSiteUrl" target="_blank">@result.Source.Title</a>
+                                    </h3>
+                                    <span> <b>Program Type:</b> @result.Source.ProgramType </span>
+                                    <span><b>Release Year: </b>@result.Source.Year </span>
+                                    <span><b>Iva Rating:</b> @result.Source.IvaRating </span>
+                                </td>
                             </tr>
                         }
                     </tbody>
                 </table>
+            }
+            else
+            {
+                if (First)
+                {
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span>No results found.. </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+
             }
         </div>
 
@@ -61,7 +76,7 @@
                             {
                                 <p class="pageButton">
                                     <button class="btn btn-link"
-                                    @onclick="@(e => SearchPager(0.ToString(), SearchData.SearchText))">
+                                    @onclick="@(e => Search(0.ToString(), SearchData.SearchText))">
                                         |&#60;
                                     </button>
                                 </p>
@@ -77,7 +92,7 @@
                             {
                                 var prev = "prev";
                                 <p class="pageButton">
-                                    <button class="btn btn-link" @onclick="@(e => SearchPager(prev, SearchData.SearchText))">&#60;</button>
+                                    <button class="btn btn-link" @onclick="@(e => Search(prev, SearchData.SearchText))">&#60;</button>
                                 </p>
                             }
                             else
@@ -101,7 +116,7 @@
                                             var plink = pn.ToString();
                                         }
                                         <button class="btn btn-link"
-                                    @onclick="@(e => SearchPager(plink, SearchData.SearchText))">
+                                    @onclick="@(e => Search(plink, SearchData.SearchText))">
                                             @(pn + 1)
                                         </button>
                                     </p>
@@ -120,7 +135,7 @@
                                         var next = "next";
                                     }
                                     <button class="btn btn-link"
-                                    @onclick="@(e => SearchPager(next, SearchData.SearchText))">
+                                    @onclick="@(e => Search(next, SearchData.SearchText))">
                                         &#62;
                                     </button>
                                 </p>
@@ -139,7 +154,7 @@
                                         var p7 = SearchData.PageCount - 1;
                                     }
                                     <button class="btn btn-link"
-                                    @onclick="@(e => SearchPager(p7.ToString(), SearchData.SearchText))">
+                                    @onclick="@(e => Search(p7.ToString(), SearchData.SearchText))">
                                         &#62;|
                                     </button>
                                 </p>
@@ -160,25 +175,26 @@
 @code {
 
     private bool Loading { get; set; } = false;
+    private bool First { get; set; } = false;
     private SearchDataDto SearchData { get; set; } = new SearchDataDto();
     public string SearchText { get; set; }
     private int PageNo { get; set; }
 
-    private async Task SearchPager(string paging, string searchText)
-    {
+    // @onkeydown="@Enter"
+    //public async void Enter(KeyboardEventArgs e)
+    //{
+    //    if (e.Code == "Enter" || e.Code == "NumpadEnter")
+    //    {
+    //        await Search(0.ToString(), SearchText);
+    //    }
+    //}
 
-        SearchData.Paging = paging.ToString();
-        SearchData.SearchText = searchText;
-        await Search();
-    }
-
-
-    private async Task Search()
+    private async Task Search(string paging, string searchText)
     {
         Loading = true;
         int page;
 
-        switch (SearchData.Paging)
+        switch ( paging.ToString())
         {
             case "prev":
                 page = PageNo - SearchData.PageSize;
@@ -189,15 +205,15 @@
                 break;
 
             default:
-                page = int.Parse(SearchData.Paging);
+                page = int.Parse( paging.ToString());
                 break;
         }
 
-        int leftMostPage = SearchData.LeftMostPage;
-
-        SearchData.Root = await videoSearch.Search(SearchText,page.ToString(),SearchData.PageSize.ToString());
+        PageNo = page;
+        SearchData.Root = await videoSearch.Search(SearchText, page.ToString(), SearchData.PageSize.ToString());
         SearchData.CurrentPage = 1;
         SearchData.PageCount = int.Parse(SearchData.Root.Total);
         Loading = false;
+        First = true;
     }
 }
